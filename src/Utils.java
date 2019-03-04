@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Utils {
@@ -20,24 +21,65 @@ public class Utils {
         return output.toString();
     }
 
+    public static String removeCharAt(String str, Integer n) {
+        String front = str.substring(0, n);
+        String back = str.substring(n+1, str.length());
+        return front + back;
+    }
+
     public static ArrayList<ElectionResult> parse2016PresidentialResults(String data) {
         ArrayList<ElectionResult> out = new ArrayList<>();
         String[] rows = data.split("\n");
         for (int i = 1; i < rows.length; i++) {
             for (int j = 0; j < rows[i].length(); j++) {
-                if (rows[i].contains("\"")) {
-                    int index1 = rows[i].indexOf("\"");
-                    int index2 = rows[i].indexOf("\"", index1);
-                    String s = rows[i].substring(index1, index2);
-                    s.replace(",", "");
-                }
-                String[] splitted = rows[i].split(",");
 
-                out.add(new ElectionResult(splitted[1], splitted[2], splitted[3], splitted[4], splitted[5], splitted[6], splitted[7], splitted[8], splitted[9], splitted[10]));
+                String[] splitted = rows[i].split(",");
+                //System.out.println("length = " + splitted.length);
+                if (splitted.length == 12) {
+                    double votes_dem = Double.parseDouble(splitted[1]),votes_gop = Double.parseDouble(splitted[2]),total_votes = Double.parseDouble(splitted[3]),per_dem = Double.parseDouble(splitted[4]),per_gop = Double.parseDouble(splitted[5]);
+
+                    String s1 = splitted[6] + splitted[7];
+                    while (s1.contains("\"")) {
+                        s1 = s1.replace("\"", "");
+                    }
+
+                    int diff = Integer.parseInt(s1);
+
+                    String s2 = splitted[8].replace("%", "");
+                    double per_point_diff = Double.parseDouble(s2);
+
+                    String state_abbr = splitted[9],county_name = splitted[10];
+
+                    int combined_fips = Integer.parseInt(splitted[11]);
+
+                    out.add(new ElectionResult(votes_dem,votes_gop,total_votes,per_dem,per_gop,diff,per_point_diff,state_abbr,county_name,combined_fips));
+                } else if (splitted.length == 11) {
+                    double votes_dem = Double.parseDouble(splitted[1]),votes_gop = Double.parseDouble(splitted[2]),total_votes = Double.parseDouble(splitted[3]),per_dem = Double.parseDouble(splitted[4]),per_gop = Double.parseDouble(splitted[5]);
+
+                    String s1 = splitted[6];
+                    while (s1.contains("\"")) {
+                        s1 = s1.replace("\"", "");
+                    }
+
+                    int diff = Integer.parseInt(s1);
+
+                    String s2 = splitted[7].replace("%", "");
+                    double per_point_diff = Double.parseDouble(s2);
+
+                    String state_abbr = splitted[8],county_name = splitted[9];
+
+                    int combined_fips = Integer.parseInt(splitted[10]);
+
+                    out.add(new ElectionResult(votes_dem,votes_gop,total_votes,per_dem,per_gop,diff,per_point_diff,state_abbr,county_name,combined_fips));
+                }
+
             }
         }
 
         return out;
+
     }
+
+
 
 }
