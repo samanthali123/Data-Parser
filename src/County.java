@@ -3,6 +3,7 @@ public class County {
     private int fips;                   // US FIPS number (unique to county)
     private Election2016 vote2016;      // holds all of the 2016 election values
     private Education2016 educ206;      // holds all of the 2016 education data
+    private Employment2016 employ2016;   // holds all of the 2016 education data
 
     public String getName() {
         return name;
@@ -36,13 +37,12 @@ public class County {
         this.educ206 = educ206;
     }
 
-    public Employment2016 getEmply2016() {
-        return emply2016;
+    public Employment2016 getEmploy2016() {
+        return employ2016;
     }
 
-    public void setEmply2016(Employment2016 emply2016) {
-        this.emply2016 = emply2016;
+    public void setEmploy2016(Employment2016 employ2016) {
+        this.employ2016 = employ2016;
     }
-
-    private Employment2016 emply2016;   // holds all of the 2016 education data
 }
+
