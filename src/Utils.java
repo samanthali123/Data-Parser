@@ -21,12 +21,6 @@ public class Utils {
         return output.toString();
     }
 
-    public static String removeCharAt(String str, Integer n) {
-        String front = str.substring(0, n);
-        String back = str.substring(n+1, str.length());
-        return front + back;
-    }
-
     public static ArrayList<ElectionResult> parse2016PresidentialResults(String data) {
         ArrayList<ElectionResult> out = new ArrayList<>();
         String[] rows = data.split("\n");
@@ -56,7 +50,7 @@ public class Utils {
 
                     out.add(new ElectionResult(votes_dem, votes_gop, total_votes, per_dem, per_gop, diff, per_point_diff, state_abbr, county_name, combined_fips));
 
-                } else if (splitted.length == 10){
+                } else if (splitted.length == 10) {
                     s1 = splitted[6];
 
                     while (s1.contains("\"")) {
@@ -87,17 +81,26 @@ public class Utils {
 
                     int combined_fips = Integer.parseInt(splitted[12]);
 
+                    loadElectionData(votes_dem, votes_gop, total_votes);
                     out.add(new ElectionResult(votes_dem, votes_gop, total_votes, per_dem, per_gop, diff, per_point_diff, state_abbr, county_name, combined_fips));
 
 
                 }
 
 
-
-                }
             }
-
-            return out;
-
         }
+
+        return out;
+
+    }
+
+    public static Election2016 loadElectionData(double votes_dem, double votes_gop, double total_votes) {
+        Election2016 election2016 = new Election2016();
+        election2016.setDemVotes(votes_dem);
+        election2016.setGopVotes(votes_gop);
+        election2016.setTotalVotes(total_votes);
+        return election2016;
+    }
+
 }
