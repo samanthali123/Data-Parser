@@ -4,6 +4,13 @@ public class Employment2016 {
     private int unemployedLaborForce;   // the unemployed labor force for a county
     private double unemployedPercent;   // the percentage of unemployed (0-100)
 
+    public Employment2016(int totalLaborForce, int employedLaborForce, int unemployedLaborForce, double unemployedPercent) {
+        this.totalLaborForce = totalLaborForce;
+        this.employedLaborForce = employedLaborForce;
+        this.unemployedLaborForce = unemployedLaborForce;
+        this.unemployedPercent = unemployedPercent;
+    }
+
     public int getTotalLaborForce() {
         return totalLaborForce;
     }
@@ -34,5 +41,15 @@ public class Employment2016 {
 
     public void setUnemployedPercent(double unemployedPercent) {
         this.unemployedPercent = unemployedPercent;
+    }
+
+    @Override
+    public String toString() {
+        return "Employment2016{" +
+                "totalLaborForce=" + totalLaborForce +
+                ", employedLaborForce=" + employedLaborForce +
+                ", unemployedLaborForce=" + unemployedLaborForce +
+                ", unemployedPercent=" + unemployedPercent +
+                '}';
     }
 }
