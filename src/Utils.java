@@ -23,20 +23,18 @@ public class Utils {
 
     public static ArrayList<Election2016> parse2016PresidentialResults(String data) {
         ArrayList<Election2016> out = new ArrayList<>();
+        ArrayList<String> parsedLine = new ArrayList<>();
         String[] rows = data.split("\n");
         for (int i = 1; i < rows.length; i++) {
-            for (int j = 0; j < rows[i].length(); j++) {
+            String[] splitted = rows[i].split(",");
+            //System.out.println("length = " + splitted.length);
 
-                String[] splitted = rows[i].split(",");
-                //System.out.println("length = " + splitted.length);
+            double votes_dem = Double.parseDouble(splitted[1]), votes_gop = Double.parseDouble(splitted[2]), total_votes = Double.parseDouble(splitted[3]), per_dem = Double.parseDouble(splitted[4]), per_gop = Double.parseDouble(splitted[5]);
 
-                double votes_dem = Double.parseDouble(splitted[1]), votes_gop = Double.parseDouble(splitted[2]), total_votes = Double.parseDouble(splitted[3]), per_dem = Double.parseDouble(splitted[4]), per_gop = Double.parseDouble(splitted[5]);
+            loadElectionData(votes_dem, votes_gop, total_votes);
+            Election2016 election2016 = new Election2016(votes_dem, votes_gop, total_votes);
+            out.add(election2016);
 
-                loadElectionData(votes_dem, votes_gop, total_votes);
-                Election2016 election2016 = new Election2016(votes_dem, votes_gop, total_votes);
-                out.add(election2016);
-
-            }
         }
         return out;
     }
@@ -82,13 +80,27 @@ public class Utils {
             parsedLine = parseCSVLine(rows[i]);
             int totalLaborForce = 0, employedLaborForce = 0, unemployedLaborForce = 0;
             double unemployedPercent = 0;
-            if (!parsedLine.get(42).equals("")) totalLaborForce = Integer.parseInt(parsedLine.get(42).trim().replaceAll(",", ""));
-            if (!parsedLine.get(43).equals("")) employedLaborForce = Integer.parseInt(parsedLine.get(43).trim().replaceAll(",", ""));
-            if (!parsedLine.get(44).equals("")) unemployedLaborForce = Integer.parseInt(parsedLine.get(44).trim().replaceAll(",", ""));
+            if (!parsedLine.get(42).equals(""))
+                totalLaborForce = Integer.parseInt(parsedLine.get(42).trim().replaceAll(",", ""));
+            if (!parsedLine.get(43).equals(""))
+                employedLaborForce = Integer.parseInt(parsedLine.get(43).trim().replaceAll(",", ""));
+            if (!parsedLine.get(44).equals(""))
+                unemployedLaborForce = Integer.parseInt(parsedLine.get(44).trim().replaceAll(",", ""));
             if (!parsedLine.get(45).equals("")) unemployedPercent = Double.parseDouble(parsedLine.get(45).trim());
 
             loadEmploymentData(totalLaborForce, employedLaborForce, unemployedLaborForce, unemployedPercent);
             out.add(new Employment2016(totalLaborForce, employedLaborForce, unemployedLaborForce, unemployedPercent));
+        }
+        return out;
+    }
+
+    public static ArrayList<String> splitCVSFile (String data1) {
+        String data = Utils.readFileAsString("data/2016_Presidential_Results.csv");
+
+        ArrayList<String> out = new ArrayList<>();
+        String[] rows = data.split("\n");
+        for (int i = 0; i < rows.length; i++) {
+            out.add(rows[i]);
         }
         return out;
     }
@@ -131,6 +143,13 @@ public class Utils {
 
     public static Employment2016 loadEmploymentData(int totalLaborForce, int employedLaborForce, int unemployedLaborForce, double unemployedPercent) {
         Employment2016 employment2016 = new Employment2016(totalLaborForce, employedLaborForce, unemployedLaborForce, unemployedPercent);
+        employment2016.setTotalLaborForce(totalLaborForce);
+        employment2016.setEmployedLaborForce(employedLaborForce);
+        employment2016.setUnemployedLaborForce(unemployedLaborForce);
+        employment2016.setUnemployedPercent(unemployedPercent);
+
         return employment2016;
     }
+
+
 }
