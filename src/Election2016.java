@@ -2,11 +2,29 @@ public class Election2016 {
     private double demVotes;        // number of Democratic votes
     private double gopVotes;        // number of GOP votes
     private double totalVotes;      // number of total votes
+    private int fips;
+    private String county;
+    private String state;
 
-    public Election2016(double demVotes, double gopVotes, double totalVotes) {
+    public Election2016(double demVotes, double gopVotes, double totalVotes, int fips, String county, String state) {
         this.demVotes = demVotes;
         this.gopVotes = gopVotes;
         this.totalVotes = totalVotes;
+        this.fips = fips;
+        this.county = county;
+        this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "Election2016{" +
+                "demVotes=" + demVotes +
+                ", gopVotes=" + gopVotes +
+                ", totalVotes=" + totalVotes +
+                ", fips=" + fips +
+                ", county='" + county + '\'' +
+                ", state='" + state + '\'' +
+                '}';
     }
 
     public double getDemVotes() {
@@ -33,12 +51,4 @@ public class Election2016 {
         this.totalVotes = totalVotes;
     }
 
-    @Override
-    public String toString() {
-        return "Election2016{" +
-                "demVotes=" + demVotes +
-                ", gopVotes=" + gopVotes +
-                ", totalVotes=" + totalVotes +
-                '}';
-    }
 }

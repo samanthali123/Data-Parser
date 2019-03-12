@@ -44,17 +44,5 @@ public class DataManager {
         int countyNameIndex = header.indexOf(countyName);
         int stateAbbrIndex = header.indexOf(stateAbbr);
 
-        for (int i = 1; i < lines.length; i++) {
-            ArrayList<String> parsed = Utils.parseCSVLine(lines[i]);
-            Election2016 election2016 = new Election2016(
-                    Double.parseDouble(parsed.get(demVotesIndex)),
-                    Double.parseDouble(parsed.get(gopVotesIndex)),
-                    Double.parseDouble(parsed.get(totalVotesIndex))
-
-            );
-            parsed.get(countyNameIndex);
-            parsed.get(stateAbbrIndex);
-
-        }
     }
 }
