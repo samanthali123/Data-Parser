@@ -23,21 +23,6 @@ public class Utils {
     }
 
     public static ArrayList<Election2016> parse2016PresidentialResults(String data) {
-//        ArrayList<Election2016> out = new ArrayList<>();
-//        ArrayList<String> parsedLine = new ArrayList<>();
-//        String[] rows = data.split("\n");
-//        for (int i = 1; i < rows.length; i++) {
-//            String[] splitted = rows[i].split(",");
-//            //System.out.println("length = " + splitted.length);
-//
-//            double votes_dem = Double.parseDouble(splitted[1]), votes_gop = Double.parseDouble(splitted[2]), total_votes = Double.parseDouble(splitted[3]), per_dem = Double.parseDouble(splitted[4]), per_gop = Double.parseDouble(splitted[5]);
-//
-//            loadElectionData(votes_dem, votes_gop, total_votes);
-//            Election2016 election2016 = new Election2016(votes_dem, votes_gop, total_votes);
-//            out.add(election2016);
-//
-//        }
-//        return out;
         ArrayList<Election2016> out = new ArrayList<>();
         ArrayList<String> parsedLine = new ArrayList<>();
         String[] rows = data.split("\n");
@@ -52,7 +37,7 @@ public class Utils {
             if (!parsedLine.get(2).equals(""))
                 gopVotes = Double.parseDouble(parsedLine.get(2).trim());
             if (!parsedLine.get(3).equals(""))
-                totalVotes = Integer.parseInt(parsedLine.get(3).trim());
+                totalVotes = Double.parseDouble(parsedLine.get(3).trim());
             if (!parsedLine.get(10).equals("")) fips = Integer.parseInt(parsedLine.get(10).trim().replaceAll("\n", ""));
             if (!parsedLine.get(8).equals("")) county = parsedLine.get(8).trim();
             if (!parsedLine.get(9).equals("")) state = parsedLine.get(9).trim();
@@ -106,8 +91,8 @@ public class Utils {
                 someCollege = Double.parseDouble(parsedLine.get(45).trim());
             if (!parsedLine.get(46).equals("")) bachelorsOrMore = Double.parseDouble(parsedLine.get(46).trim());
             if (!parsedLine.get(0).equals("")) fips = Integer.parseInt(parsedLine.get(0).trim());
-            if (!parsedLine.get(2).equals("")) county = parsedLine.get(8).trim();
-            if (!parsedLine.get(1).equals("")) state = parsedLine.get(9).trim();
+            if (!parsedLine.get(2).equals("")) county = parsedLine.get(2).trim();
+            if (!parsedLine.get(1).equals("")) state = parsedLine.get(1).trim();
 
             loadEducationData(noHighSchool, employedLaborForce, someCollege, bachelorsOrMore, fips, county, state);
             out.add(new Education2016(noHighSchool, employedLaborForce, someCollege, bachelorsOrMore, fips, county, state));
@@ -138,6 +123,8 @@ public class Utils {
                 unemployedLaborForce = Integer.parseInt(parsedLine.get(44).trim().replaceAll(",", ""));
             if (!parsedLine.get(45).equals("")) unemployedPercent = Double.parseDouble(parsedLine.get(45).trim());
             if (!parsedLine.get(0).equals("")) fips = Integer.parseInt(parsedLine.get(0).trim());
+            if (!parsedLine.get(1).equals("")) state = parsedLine.get(1).trim();
+            if (!parsedLine.get(2).equals("")) county = parsedLine.get(2).trim();
 
             loadEmploymentData(totalLaborForce, employedLaborForce, unemployedLaborForce, unemployedPercent, fips, county, state);
             out.add(new Employment2016(totalLaborForce, employedLaborForce, unemployedLaborForce, unemployedPercent, fips, county, state));

@@ -7,6 +7,40 @@ public class Employment2016 {
     private String county;
     private String state;
 
+    public Employment2016(int totalLaborForce, int employedLaborForce, int unemployedLaborForce, double unemployedPercent, int fips, String county, String state) {
+        this.totalLaborForce = totalLaborForce;
+        this.employedLaborForce = employedLaborForce;
+        this.unemployedLaborForce = unemployedLaborForce;
+        this.unemployedPercent = unemployedPercent;
+        this.fips = fips;
+        this.county = county;
+        this.state = state;
+    }
+
+    public int getFips() {
+        return fips;
+    }
+
+    public void setFips(int fips) {
+        this.fips = fips;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         return "Employment2016{" +
@@ -18,16 +52,6 @@ public class Employment2016 {
                 ", county='" + county + '\'' +
                 ", state='" + state + '\'' +
                 '}';
-    }
-
-    public Employment2016(int totalLaborForce, int employedLaborForce, int unemployedLaborForce, double unemployedPercent, int fips, String county, String state) {
-        this.totalLaborForce = totalLaborForce;
-        this.employedLaborForce = employedLaborForce;
-        this.unemployedLaborForce = unemployedLaborForce;
-        this.unemployedPercent = unemployedPercent;
-        this.fips = fips;
-        this.county = county;
-        this.state = state;
     }
 
     public int getTotalLaborForce() {

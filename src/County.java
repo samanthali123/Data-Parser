@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 
 public class County {
+    private static ArrayList<County> counties = new ArrayList<County>();
+
     private String name;                // name of county
     private int fips;                   // US FIPS number (unique to county)
     private Election2016 vote2016;      // holds all of the 2016 election values
     private Education2016 educ206;      // holds all of the 2016 education data
     private Employment2016 employ2016;   // holds all of the 2016 education data
-    private ArrayList<County> counties = new ArrayList<>();
+
 
     public County(String name, int fips, Election2016 vote2016, Education2016 educ206, Employment2016 employ2016) {
         this.name = name;
@@ -14,6 +16,23 @@ public class County {
         this.vote2016 = vote2016;
         this.educ206 = educ206;
         this.employ2016 = employ2016;
+
+        counties.add(this);
+    }
+
+    public static ArrayList<County> getCounties (State s) {
+        for (County c : counties) {
+            if ()
+        }
+    }
+
+    public static County getCounty(String toFind) {
+        for (County c : counties) {
+            if (c.getName().equals(toFind)) {
+                return c;
+            }
+        }
+        return null;
     }
 
     public void addCounty (County c) {

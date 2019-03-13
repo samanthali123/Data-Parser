@@ -33,6 +33,8 @@ public class DataManager {
     public void parseElectionResults (String data) {
         String line = ",votes_dem,votes_gop,total_votes,per_dem,per_gop,diff,per_point_diff,state_abbr,county_name,combined_fips\n";
 
+
+
         String demVotes = "votes_dem", gopVotes = "votes_gop", totalVotes = "total_votes", countyName = "county_name", stateAbbr = "state_abbr";
 
         String[] lines = data.split("\n");
