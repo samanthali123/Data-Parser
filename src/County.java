@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class County {
     private static ArrayList<County> counties = new ArrayList<County>();
 
+    private String state;
     private String name;                // name of county
     private int fips;                   // US FIPS number (unique to county)
     private Election2016 vote2016;      // holds all of the 2016 election values
@@ -10,7 +11,8 @@ public class County {
     private Employment2016 employ2016;   // holds all of the 2016 education data
 
 
-    public County(String name, int fips, Election2016 vote2016, Education2016 educ206, Employment2016 employ2016) {
+    public County(String state, String name, int fips, Election2016 vote2016, Education2016 educ206, Employment2016 employ2016) {
+        this.state = state;
         this.name = name;
         this.fips = fips;
         this.vote2016 = vote2016;
@@ -21,9 +23,11 @@ public class County {
     }
 
     public static ArrayList<County> getCounties (State s) {
+        ArrayList<County> matches = new ArrayList<>();
         for (County c : counties) {
-            if ()
+            if (c.getState().equals(s)) matches.add(c);
         }
+        return matches;
     }
 
     public static County getCounty(String toFind) {
@@ -33,6 +37,22 @@ public class County {
             }
         }
         return null;
+    }
+
+    public static ArrayList<County> getCounties() {
+        return counties;
+    }
+
+    public static void setCounties(ArrayList<County> counties) {
+        County.counties = counties;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public void addCounty (County c) {
